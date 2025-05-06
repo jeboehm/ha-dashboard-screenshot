@@ -3,22 +3,21 @@ kind: CronJob
 metadata:
   name: ha-dashboard-screenshot
 spec:
-  schedule: "*/10 * * * *"
+  schedule: "*/6 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
+            fsGroup: 1000
           containers:
           - name: screenshot
             image: ghcr.io/jeboehm/ha-dashboard-screenshot:main
             securityContext:
               allowPrivilegeEscalation: false
+              runAsUser: 1000
+              runAsGroup: 1000
               capabilities:
                 drop:
                   - ALL

@@ -13,18 +13,13 @@ spec:
         app: ha-dashboard-screenshot-nginx
     spec:
       securityContext:
-        runAsUser: 101
-        runAsGroup: 101
         fsGroup: 101
-        runAsNonRoot: true
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-            - ALL
       containers:
       - name: nginx
         image: nginxinc/nginx-unprivileged:stable-alpine
         securityContext:
+          runAsUser: 101
+          runAsGroup: 101
           readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
           capabilities:
