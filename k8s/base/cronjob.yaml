@@ -16,7 +16,7 @@ spec:
                 - ALL
           containers:
           - name: screenshot
-            image: ha-dashboard-screenshot:latest
+            image: ghcr.io/jeboehm/ha-dashboard-screenshot:main
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
