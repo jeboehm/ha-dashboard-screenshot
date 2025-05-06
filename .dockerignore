@@ -5,3 +5,7 @@ npm-debug.log
 .env
 *.png
 .DS_Store
+k8s/
+Dockerfile
+renovate.json
+.github/
