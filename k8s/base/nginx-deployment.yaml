@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-dashboard-screenshot-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ha-dashboard-screenshot-nginx
+  template:
+    metadata:
+      labels:
+        app: ha-dashboard-screenshot-nginx
+    spec:
+      securityContext:
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+      containers:
+      - name: nginx
+        image: nginxinc/nginx-unprivileged:stable-alpine
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: screenshot-volume
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+        - name: varrun
+          mountPath: /var/run
+        - name: varcache
+          mountPath: /var/cache/nginx
+      volumes:
+      - name: screenshot-volume
+        persistentVolumeClaim:
+          claimName: ha-dashboard-screenshot-pvc
+      - name: tmp
+        emptyDir: {}
+      - name: varrun
+        emptyDir: {}
+      - name: varcache
+        emptyDir: {}

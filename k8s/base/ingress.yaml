@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ha-dashboard-screenshot-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - ha-dashboard.example.com
+    secretName: ha-dashboard-screenshot-tls
+  rules:
+  - host: ha-dashboard.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ha-dashboard-screenshot-nginx
+            port:
+              number: 80

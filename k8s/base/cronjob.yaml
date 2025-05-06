@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ha-dashboard-screenshot
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          containers:
+          - name: screenshot
+            image: ha-dashboard-screenshot:latest
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: "200m"
+                memory: "256Mi"
+              limits:
+                cpu: "500m"
+                memory: "512Mi"
+            envFrom:
+            - secretRef:
+                name: ha-dashboard-screenshot-secret
+            volumeMounts:
+            - name: screenshot-volume
+              mountPath: /app/output
+            args: []
+          volumes:
+          - name: screenshot-volume
+            persistentVolumeClaim:
+              claimName: ha-dashboard-screenshot-pvc

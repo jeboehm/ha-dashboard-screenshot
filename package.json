@@ -1,0 +1,23 @@
+{
+  "name": "ha-dashboard-screenshot",
+  "description": "Programmatically create screenshots of Home Assistant dashboards",
+  "license": "MIT",
+  "author": "Jeffrey Boehm",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "csfix": "ts-standard --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "ts-standard": "^12.0.2",
+    "tsx": "^4.19.4",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "playwright": "^1.52.0"
+  }
+}
