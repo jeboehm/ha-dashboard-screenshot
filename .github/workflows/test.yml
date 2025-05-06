@@ -20,6 +20,8 @@ jobs:
         run: npm install
       - name: Typecheck
         run: npm run build
+      - name: ts-standard
+        run: npm run test
   validate_kustomize:
     runs-on: ubuntu-latest
     steps:
