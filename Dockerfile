@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:lts-slim@sha256:f752e4821362614eab35016f01dea3af61d2f59d0445381c25683e4331520a7b
 
 # Install Playwright dependencies
 RUN apt-get update && apt-get install -y \
