@@ -1,5 +1,10 @@
 # ha-dashboard-screenshot
 
+***DEPRECATED***
+
+Use https://github.com/usetrmnl/trmnl-home-assistant
+
+
 Programmatically create screenshots of Home Assistant dashboards.
 
 ## Usage
